@@ -25,11 +25,10 @@ class Lucky7{
 		public function processRound($choice){
 
 			$sum_of_dices = self::$dice1 + self::$dice2;
-			echo "sum_of_dices:".$sum_of_dices.PHP_EOL;
 
 			$wc = self::$welcomeAmount;
 			$wc -= $this->betAmount;
-			$result = '';
+			$result = 'Balance is ';
 
 			switch($choice){
 					case '7': 
@@ -39,7 +38,7 @@ class Lucky7{
 								}
 								break;
 					case 'Above 7':
-								if ($sum_of_dices < 7){
+								if ($sum_of_dices > 7){
 									$result = "Congratulations! You win! Your balance is now ";
 									$wc += $this->above7_win;  
 								}
@@ -61,7 +60,7 @@ class Lucky7{
 			echo "Dice 2:". self::$dice2 . PHP_EOL;
 			echo "Total :". $sum_of_dices . PHP_EOL;
 
-			echo $result . self::$welcomeAmount ." Rs";
+			echo $result . self::$welcomeAmount ." Rs".PHP_EOL;
 		}
 
 }
@@ -84,13 +83,17 @@ if(in_array($choice, $choices)){
 
 	$game->processRound($choice);
 
-	$opt = readLine("Reset(R) or Continue(C)");
+	$opt = readLine("Reset(R) | Continue(C) | Exit(E)");
 
 	if ($opt == 'R'){
 		Lucky7::$welcomeAmount = 100;
+		goto PLAYAGAIN;
 	}
 	else if($opt == 'C'){
 		goto PLAYAGAIN;
+	}
+	else{
+		echo "Thanks".PHP_EOL;
 	}
 
 }		
